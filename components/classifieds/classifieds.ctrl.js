@@ -2,9 +2,9 @@
   "use strict";
 
   angular.module("ngClassifieds")
-    .controller("classifiedsCtrl", function ($scope, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog) {
+    .controller("classifiedsCtrl", function ($scope, $state, $http, classifiedsFactory, $mdSidenav, $mdToast, $mdDialog) {
 
-      var vm = this; 
+      var vm = this;
 
       vm.categories;
       vm.classified;
@@ -22,6 +22,12 @@
         vm.categories = getCategories(vm.classifieds);
       });
 
+      $scope.$on('newClassified', function(event, classified) {
+        classified.id = vm.classifieds.length + 1;
+        vm.classifieds.push(classified);
+        showToast('Classified save!');
+      });
+      
       var contact = {
         name: "Nathan Pickard",
         phone: "(555) 555-5555",
@@ -29,7 +35,7 @@
       }      
 
       function openSidebar() {
-        $mdSidenav('left').open();
+        $state.go('classifieds.new');
       }
 
       function closeSidebar() {
@@ -48,9 +54,7 @@
       }
 
       function editClassified(classified) {
-        vm.editing = true;
-        openSidebar();
-        vm.classified = classified;
+        $state.go('classifieds')
       }
 
       function saveEdit() {
