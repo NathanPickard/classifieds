@@ -17,8 +17,11 @@ angular.module('ngClassifieds', ['ngMaterial', 'ui.router'])
         controller: 'newClassifiedsCtrl as vm'
       })
       .state('classifieds.edit', {
-        url: '/edit',
+        url: '/edit/:id',
         templateUrl: 'components/classifieds/edit/classifieds.edit.tpl.html',
-        controller: 'editClassifiedsCtrl as vm'
+        controller: 'editClassifiedsCtrl as vm',
+        params: {
+          classified: null
+        }
       });
   });

@@ -27,6 +27,10 @@
         vm.classifieds.push(classified);
         showToast('Classified save!');
       });
+
+      $scope.$on('editSaved', function(event, message) {
+        showToast(message);
+      });
       
       var contact = {
         name: "Nathan Pickard",
@@ -54,7 +58,10 @@
       }
 
       function editClassified(classified) {
-        $state.go('classifieds')
+        $state.go('classifieds.edit', {
+          id: classified.id,
+          classified: classified
+        });
       }
 
       function saveEdit() {

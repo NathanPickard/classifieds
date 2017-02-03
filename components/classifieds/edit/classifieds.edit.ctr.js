@@ -8,7 +8,8 @@
 
       var vm = this;
       vm.closeSidebar = closeSidebar;
-      vm.saveClassified = saveClassified;
+      vm.saveEdit = saveEdit;
+      vm.classified = $state.params.classified;
 
       $timeout(function () {
         $mdSidenav('left').open();
@@ -28,16 +29,9 @@
         vm.sidenavOpen = false;
       }
 
-      function saveClassified(classified) {
-        if (classified) {
-          classified.contact = {
-            name: "Nathan Pickard",
-            phone: "(555) 555-5555",
-            email: "nathanpickard@gmail.com"
-          }
-          $scope.$emit('newClassified', classified);
-          vm.sidenavOpen = false;
-        }
+      function saveEdit() {
+        $scope.$emit('editSaved', 'Edit saved!');
+        vm.sidenavOpen = false;        
       }
 
     });
